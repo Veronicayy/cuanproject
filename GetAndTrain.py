@@ -1,3 +1,4 @@
+#IMPORT LIBRARY
 import cv2
 import os
 import numpy as np
@@ -12,8 +13,19 @@ def ambilgambar():
 
     face_detector = cv2.CascadeClassifier('Cascades/haarcascade_frontalface_default.xml')
     face_id = input('\n Masukan User ID <return> ==>  ')
-    
-
+    nama = input('\n Masukan Nama <return> ==>  ')
+    with open ('nama.txt', 'w') as f:
+        f.write(''+ nama + '')
+    noTlp = input('\n Masukan nomer telponmu <return> ==>  ')
+    word = ['Apple', 'Banana', 'Pineaple', 'Jakarta', 'Berlin', 'Stockholm', 'Denver']
+    sendWord = (rdm.choice(word))
+    with open ('word.txt', 'w') as f:
+       f.write(sendWord + '\n')
+    noLoker = '1'
+    kirim = ("Password anda :" + " " + sendWord + " " +  "nomer loker" + " " + noLoker)
+    #KIRIM SMS
+    subprocess.call(['curl', '-X', 'POST', "https://api.thebigbox.id/sms-notification/1.0.0/messages", '-H', "accept: application/x-www-form-urlencoded", '-H', "x-api-key: 2y2XT6ELcv16nD92H4mTpktqdF2sEChk", '-H', "Content-Type: application/x-www-form-urlencoded", '-d', "msisdn="+ noTlp + '&content=' + kirim])
+    print(sendWord)
     print("\n Memulai Kamera")
     count = 0
 
@@ -46,13 +58,6 @@ ambilgambar()
 
 def trainGambar():
     path = 'dataset'
-    noTelp1 = input('\n Masukan nomer telponmu <return> ==>  ')
-    word = ['dede', 'didi', 'dodo']
-    sendWord = rdm.choice(word)
-    subprocess.call(['curl', '-X', 'POST', "https://api.thebigbox.id/sms-notification/1.0.0/messages", '-H', "accept: application/x-www-form-urlencoded", '-H', "x-api-key: 2y2XT6ELcv16nD92H4mTpktqdF2sEChk", '-H', "Content-Type: application/x-www-form-urlencoded", '-d', "msisdn="+ noTelp1 + '&content=' + sendWord])
-    # subprocess.call(['curl', '-X', 'POST', 'https://api.thebigbox.id/sms-notification/1.0.0/messages','-H','accept: application/x-www-form-urlencoded','-H', 'x-api-key: 2y2XT6ELcv16nD92H4mTpktqdF2sEChk','-H', 'Content-Type: application/x-www-form-urlencoded', '-d' ,"msisdn='%s' content='%s'"] %) 
-    
-
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     detector = cv2.CascadeClassifier("Cascades/haarcascade_frontalface_default.xml");
 
